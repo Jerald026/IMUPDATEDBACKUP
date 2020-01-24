@@ -86,7 +86,7 @@ public class Register extends javax.swing.JFrame {
         ERRORTV.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         ERRORTV.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(ERRORTV);
-        ERRORTV.setBounds(90, 600, 140, 20);
+        ERRORTV.setBounds(90, 600, 380, 20);
 
         blank.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\BG\\Register.png")); // NOI18N
         blank.setText("jLabel1");

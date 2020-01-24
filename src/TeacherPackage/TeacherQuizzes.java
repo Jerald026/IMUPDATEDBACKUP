@@ -23,7 +23,7 @@ import net.proteanit.sql.DbUtils;
 public class TeacherQuizzes extends javax.swing.JFrame {
 
     String user;
-    private String TitleUser;
+    private String TitleUser = "";
     private int QTID;
     /**
      * Creates new form TeacherQuizzes
@@ -115,6 +115,7 @@ public class TeacherQuizzes extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        ERRORTV = new javax.swing.JLabel();
         blank = new javax.swing.JLabel();
         OPENBTN = new javax.swing.JButton();
         ADDBTN = new javax.swing.JButton();
@@ -151,6 +152,11 @@ public class TeacherQuizzes extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(30, 170, 940, 560);
+
+        ERRORTV.setFont(new java.awt.Font("Baskerville Old Face", 0, 14)); // NOI18N
+        ERRORTV.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(ERRORTV);
+        ERRORTV.setBounds(30, 740, 330, 20);
 
         blank.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\BG\\Quizzes.png")); // NOI18N
         blank.setText("jLabel1");
@@ -213,9 +219,14 @@ public class TeacherQuizzes extends javax.swing.JFrame {
 
     private void OPENBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OPENBTNActionPerformed
         try {
+            if(TitleUser.equals("")){
+                ERRORTV.setText("EMPTY");
+                return;
+            }else{
             AddExam exam = new AddExam(user,TitleUser);
             exam.setVisible(true);
             this.dispose();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(TeacherQuizzes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -309,6 +320,7 @@ public class TeacherQuizzes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ADDBTN;
     private javax.swing.JButton DELETEBTN;
+    private javax.swing.JLabel ERRORTV;
     private javax.swing.JButton LOGOUTBTN;
     private javax.swing.JButton OPENBTN;
     private javax.swing.JLabel blank;
