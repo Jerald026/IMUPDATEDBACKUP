@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * @author halla
  */
 public class StudentAnswerMultiple extends javax.swing.JFrame {
-
+        private int TAID, QTID;
     /**
      * Creates new form Home
      */
@@ -33,7 +33,21 @@ public class StudentAnswerMultiple extends javax.swing.JFrame {
         int ysize = (int) tk.getScreenSize().getHeight();
         this.setSize(xsize, ysize);
     }
+    public StudentAnswerMultiple(int TAID,int QTID,String title) {
+        this.setUndecorated(true);
+        this.setAlwaysOnTop(true);
+        this.setResizable(false);
+        this.setVisible(true);
+        initComponents();
 
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int xsize = (int) tk.getScreenSize().getWidth();
+        int ysize = (int) tk.getScreenSize().getHeight();
+        this.setSize(xsize, ysize);
+        this.TAID=TAID;
+        this.QTID=QTID;
+        TITLETOP.setText(title);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -124,10 +138,20 @@ public class StudentAnswerMultiple extends javax.swing.JFrame {
         RadioBTNA.setBounds(390, 450, 290, 40);
 
         NEXTBTN.setText("NEXT");
+        NEXTBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NEXTBTNActionPerformed(evt);
+            }
+        });
         jPanel1.add(NEXTBTN);
         NEXTBTN.setBounds(1240, 710, 80, 30);
 
         BACKBTN.setText("BACK");
+        BACKBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BACKBTNActionPerformed(evt);
+            }
+        });
         jPanel1.add(BACKBTN);
         BACKBTN.setBounds(1143, 710, 80, 30);
 
@@ -153,6 +177,14 @@ public class StudentAnswerMultiple extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void NEXTBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NEXTBTNActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NEXTBTNActionPerformed
+
+    private void BACKBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKBTNActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BACKBTNActionPerformed
 
     /**
      * @param args the command line arguments

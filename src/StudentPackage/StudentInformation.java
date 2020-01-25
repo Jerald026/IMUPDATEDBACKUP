@@ -25,6 +25,8 @@ public class StudentInformation extends javax.swing.JFrame {
 
     private String user;
     private String title;
+    private int QTID = 0;
+    private int TAID = 0;
 
     /**
      * Creates new form Home
@@ -42,19 +44,6 @@ public class StudentInformation extends javax.swing.JFrame {
         this.setSize(xsize, ysize);
     }
 
-    public StudentInformation(String user, String title) {
-        this.setUndecorated(true);
-        this.setAlwaysOnTop(true);
-        this.setResizable(false);
-        this.setVisible(true);
-        initComponents();
-        this.user = user;
-        this.title = title;
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        int xsize = (int) tk.getScreenSize().getWidth();
-        int ysize = (int) tk.getScreenSize().getHeight();
-        this.setSize(xsize, ysize);
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -152,26 +141,51 @@ public int getIdStudent(String Fname, String Lname, String section, String code)
         }
         return 0;
     }
-public String getCondition(String QT_CODEGENERATE){
-    
-    
-    return null;
-}
-    public Boolean checkcode(String QT_CODEGENERATE) {
-              try (Connection con = connect()) {
-                    PreparedStatement pst = con.prepareStatement("SELECT * FROM QuizesTitle WHERE QT_CODEGENERATE = ?");
-                    pst.setString(1, QT_CODEGENERATE);
-                    ResultSet rs = pst.executeQuery();
-                    if (rs.next()) {
-                        return true ;
-                    }
-        
-         }catch (ClassNotFoundException ex) {
+
+    public String getFirstCondition(String QT_CODEGENERATE) {
+
+        try (Connection con = connect()) {
+            PreparedStatement pst = con.prepareStatement("SELECT QT_ID, TA_ID, QT_Title FROM QuizesTitle WHERE QT_CODEGENERATE = ?");
+            pst.setString(1, QT_CODEGENERATE);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                QTID = rs.getInt(1);
+                TAID = rs.getInt(2);
+                title=rs.getString(3);
+            }
+            pst.close();
+            rs.close();
+            pst = con.prepareStatement("SELECT QE_Condition FROM Questions WHERE QT_ID = ? AND TA_ID = ? ");
+            pst.setInt(1, QTID);
+            pst.setInt(2, TAID);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(StudentInformation.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(StudentInformation.class.getName()).log(Level.SEVERE, null, ex);
         }
-         return false;
+        return null;
+    }
+
+    public Boolean checkcode(String QT_CODEGENERATE) {
+        try (Connection con = connect()) {
+            PreparedStatement pst = con.prepareStatement("SELECT * FROM QuizesTitle WHERE QT_CODEGENERATE = ?");
+            pst.setString(1, QT_CODEGENERATE);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(StudentInformation.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentInformation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
     private void JOINBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JOINBTNActionPerformed
         try {
@@ -179,35 +193,45 @@ public String getCondition(String QT_CODEGENERATE){
                 ERRORTV.setText("Fill Up all the Fields");
                 return;
             }
-                if( !checkcode( TEXTFIELDCODE.getText())){
-                      ERRORTV.setText("Invalid code! \n Please Check the Code");
-                      return;
-                }
-                int id = getIdStudent(TEXTFIELDFNAME.getText(), TEXTFIELDLNAME.getText(), TEXTFIELDSECTION1.getText(), TEXTFIELDCODE.getText());
-                try (Connection con = connect()) {
-                    PreparedStatement pst = con.prepareStatement("SELECT * FROM Student_Account WHERE SA_ID = '"+id+"' AND SA_FName = '"+TEXTFIELDFNAME.getText()+"' AND SA_LName = '"+TEXTFIELDLNAME.getText()+"' AND SA_Section = '"+TEXTFIELDSECTION1.getText()+"' AND QT_CODEGENERATE = '"+TEXTFIELDCODE.getText()+"'");
-                     ResultSet rs = pst.executeQuery();
-                    if (rs.next()) {
-                        ERRORTV.setText("You are already done, please input another code");
-                        return;
-                    } else {
-                        pst.close();
-                        rs.close();
-                        pst = con.prepareStatement("INSERT INTO Student_Account(SA_FName,SA_LName,SA_Section,QT_CODEGENERATE) VALUES(?,?,?,?)");
-                        pst.setString(1, TEXTFIELDFNAME.getText());
-                        pst.setString(2, TEXTFIELDLNAME.getText());
-                        pst.setString(3, TEXTFIELDSECTION1.getText());
-                        pst.setString(4, TEXTFIELDCODE.getText());
-                        pst.execute();
-                 
-                    }
+            if (!checkcode(TEXTFIELDCODE.getText())) {
+                ERRORTV.setText("Invalid code! \n Please Check the Code");
+                return;
+            }
+            int id = getIdStudent(TEXTFIELDFNAME.getText(), TEXTFIELDLNAME.getText(), TEXTFIELDSECTION1.getText(), TEXTFIELDCODE.getText());
+            try (Connection con = connect()) {
+                PreparedStatement pst = con.prepareStatement("SELECT * FROM Student_Account WHERE SA_ID = '" + id + "' AND SA_FName = '" + TEXTFIELDFNAME.getText() + "' AND SA_LName = '" + TEXTFIELDLNAME.getText() + "' AND SA_Section = '" + TEXTFIELDSECTION1.getText() + "' AND QT_CODEGENERATE = '" + TEXTFIELDCODE.getText() + "'");
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    ERRORTV.setText("You are already done, please input another code");
+                    return;
+                } else {
                     pst.close();
-                    con.close();
+                    rs.close();
+                    pst = con.prepareStatement("INSERT INTO Student_Account(SA_FName,SA_LName,SA_Section,QT_CODEGENERATE) VALUES(?,?,?,?)");
+                    pst.setString(1, TEXTFIELDFNAME.getText());
+                    pst.setString(2, TEXTFIELDLNAME.getText());
+                    pst.setString(3, TEXTFIELDSECTION1.getText());
+                    pst.setString(4, TEXTFIELDCODE.getText());
+                    pst.execute();
+                    String condition = getFirstCondition(TEXTFIELDCODE.getText());
+                    if (condition.equals("TEXT")) {
+                        StudentAnswerText answerText = new StudentAnswerText(TAID,QTID,title);
+                        answerText.setVisible(true);
+                        this.dispose();
+                    } else if (condition.equals("MULTIPLE")) {
+                        StudentAnswerMultiple answerMultiple = new StudentAnswerMultiple(TAID,QTID,title);
+                        answerMultiple.setVisible(true);
+                        this.dispose();
+                    }
 
-                } catch (ClassNotFoundException ex) {
+                }
+                pst.close();
+                con.close();
+
+            } catch (ClassNotFoundException ex) {
                 Logger.getLogger(StudentInformation.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         } catch (SQLException e) {
             System.out.println(e);
         }

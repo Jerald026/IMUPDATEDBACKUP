@@ -103,7 +103,7 @@ public class TitleQuiz extends javax.swing.JFrame {
             }
         });
         jPanel1.add(ADDBTN);
-        ADDBTN.setBounds(940, 490, 240, 80);
+        ADDBTN.setBounds(940, 500, 240, 80);
 
         CANCELBTN.setText("jButton2");
         CANCELBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -112,7 +112,7 @@ public class TitleQuiz extends javax.swing.JFrame {
             }
         });
         jPanel1.add(CANCELBTN);
-        CANCELBTN.setBounds(940, 590, 240, 80);
+        CANCELBTN.setBounds(940, 600, 240, 70);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -149,6 +149,10 @@ public class TitleQuiz extends javax.swing.JFrame {
     }
     private void ADDBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ADDBTNActionPerformed
         try {
+            if(TextFTitleExam.getText().equals("")|| TextFTitleExam.getText().length()==0){
+                ERRORTV.setText("Fill up all the fields");
+                return;
+            }
             Connection con = DBconnection.connect();
             PreparedStatement pst = con.prepareStatement("SELECT * FROM QuizesTitle WHERE TA_ID = ? AND QT_Title = ?");
             int mama = getID(user);
@@ -163,30 +167,27 @@ public class TitleQuiz extends javax.swing.JFrame {
                 pst = con.prepareStatement("INSERT INTO QuizesTitle(TA_ID,QT_Title,QT_CODEGENERATE,QT_TIME) VALUES(?,?,?,?)");
                 pst.setInt(1, mama);
                 pst.setString(2, TextFTitleExam.getText());
-                
-                
+
                 String easy = RandomString.digits + "ACEFGHJKLMNPQRUVWXYabcdefhijkprstuvwx";
                 RandomString tickets = new RandomString(6, new SecureRandom(), easy);
-                Connection checkcon=connect();
-                PreparedStatement check=checkcon.prepareStatement("SELECT * FROM QuizesTitle WHERE TA_ID = ? AND QT_ID = ? AND QT_CODEGENERATE = ?");
+                Connection checkcon = connect();
+                PreparedStatement check = checkcon.prepareStatement("SELECT * FROM QuizesTitle WHERE TA_ID = ? AND QT_CODEGENERATE = ?");
                 check.setInt(1, mama);
-                check.setString(2, TextFTitleExam.getText());
-                 check.setString(3, tickets.nextString());
-                ResultSet checkSet=check.executeQuery();
-                if(checkSet.next()){
+                check.setString(2, tickets.nextString());
+                ResultSet checkSet = check.executeQuery();
+                if (checkSet.next()) {
                     RandomString gen = new RandomString(8, ThreadLocalRandom.current());
-                     pst.setString(3, gen.nextString());
-                }else{
+                    pst.setString(3, gen.nextString());
+                } else {
                     pst.setString(3, tickets.nextString());
                 }
-                
-                pst.setInt(4, (Integer)MINUTESSPINNER.getValue());
+                pst.setInt(4, (Integer) MINUTESSPINNER.getValue());
                 pst.execute();
                 AddExam exam = new AddExam(user, TextFTitleExam.getText());
                 exam.setVisible(true);
                 this.dispose();
             }
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
         }
     }//GEN-LAST:event_ADDBTNActionPerformed

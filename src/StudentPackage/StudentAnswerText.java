@@ -8,6 +8,7 @@ package StudentPackage;
 import TeacherPackage.*;
 import StudentPackage.StudentInformation;
 import java.awt.Toolkit;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +18,9 @@ import java.util.logging.Logger;
  * @author halla
  */
 public class StudentAnswerText extends javax.swing.JFrame {
+
+    private int TAID, QTID;
+    private ResultSet loop;
 
     /**
      * Creates new form Home
@@ -32,6 +36,22 @@ public class StudentAnswerText extends javax.swing.JFrame {
         int xsize = (int) tk.getScreenSize().getWidth();
         int ysize = (int) tk.getScreenSize().getHeight();
         this.setSize(xsize, ysize);
+    }
+
+    public StudentAnswerText(int TAID, int QTID, String title) {
+        this.setUndecorated(true);
+        this.setAlwaysOnTop(true);
+        this.setResizable(false);
+        this.setVisible(true);
+        initComponents();
+
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int xsize = (int) tk.getScreenSize().getWidth();
+        int ysize = (int) tk.getScreenSize().getHeight();
+        this.setSize(xsize, ysize);
+        this.TAID = TAID;
+        this.QTID = QTID;
+        TITLETOP.setText(title);
     }
 
     /**
@@ -78,10 +98,20 @@ public class StudentAnswerText extends javax.swing.JFrame {
         jLabel2.setBounds(320, 410, 110, 50);
 
         NEXTBTN.setText("NEXT");
+        NEXTBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NEXTBTNActionPerformed(evt);
+            }
+        });
         jPanel1.add(NEXTBTN);
         NEXTBTN.setBounds(1240, 710, 80, 30);
 
         BACKBTN.setText("BACK");
+        BACKBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BACKBTNActionPerformed(evt);
+            }
+        });
         jPanel1.add(BACKBTN);
         BACKBTN.setBounds(1129, 710, 80, 30);
 
@@ -114,6 +144,14 @@ public class StudentAnswerText extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void NEXTBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NEXTBTNActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NEXTBTNActionPerformed
+
+    private void BACKBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKBTNActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BACKBTNActionPerformed
 
     /**
      * @param args the command line arguments
