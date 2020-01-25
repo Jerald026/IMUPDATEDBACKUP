@@ -15,18 +15,32 @@ import java.util.logging.Logger;
  *
  * @author halla
  */
-public class Home extends javax.swing.JFrame {
-
+public class Choices extends javax.swing.JFrame {
+    private String user;
+    private String title;
     /**
      * Creates new form Home
      */
-    public Home() {
+    public Choices() {
         this.setUndecorated(true);
         this.setAlwaysOnTop(true);
         this.setResizable(false);
         this.setVisible(true);
         initComponents();
 
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int xsize = (int) tk.getScreenSize().getWidth();
+        int ysize = (int) tk.getScreenSize().getHeight();
+        this.setSize(xsize, ysize);
+    }
+    public Choices(String user, String title) {
+        this.setUndecorated(true);
+        this.setAlwaysOnTop(true);
+        this.setResizable(false);
+        this.setVisible(true);
+        initComponents();
+        this.user=user;
+        this.title=title;
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xsize = (int) tk.getScreenSize().getWidth();
         int ysize = (int) tk.getScreenSize().getHeight();
@@ -43,10 +57,10 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        Teacher = new javax.swing.JButton();
-        Student = new javax.swing.JButton();
-        EXITBTN = new javax.swing.JButton();
+        blank = new javax.swing.JLabel();
+        BACKBTN = new javax.swing.JButton();
+        MULTIPLECHOICE = new javax.swing.JButton();
+        IDENTIFICATIOn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1965, 1080));
@@ -54,37 +68,37 @@ public class Home extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(1965, 1080));
         jPanel1.setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\Welcome BG.png")); // NOI18N
-        jLabel1.setText("jLabel1");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(0, 0, 1965, 768);
+        blank.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\Choices BG.png")); // NOI18N
+        blank.setText("jLabel1");
+        jPanel1.add(blank);
+        blank.setBounds(0, 0, 1965, 768);
 
-        Teacher.setText("jButton1");
-        Teacher.addActionListener(new java.awt.event.ActionListener() {
+        BACKBTN.setText("jButton1");
+        BACKBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TeacherActionPerformed(evt);
+                BACKBTNActionPerformed(evt);
             }
         });
-        jPanel1.add(Teacher);
-        Teacher.setBounds(260, 420, 250, 80);
+        jPanel1.add(BACKBTN);
+        BACKBTN.setBounds(20, 40, 80, 60);
 
-        Student.setText("jButton1");
-        Student.addActionListener(new java.awt.event.ActionListener() {
+        MULTIPLECHOICE.setText("jButton2");
+        MULTIPLECHOICE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StudentActionPerformed(evt);
+                MULTIPLECHOICEActionPerformed(evt);
             }
         });
-        jPanel1.add(Student);
-        Student.setBounds(850, 420, 250, 80);
+        jPanel1.add(MULTIPLECHOICE);
+        MULTIPLECHOICE.setBounds(70, 240, 350, 80);
 
-        EXITBTN.setText("jButton1");
-        EXITBTN.addActionListener(new java.awt.event.ActionListener() {
+        IDENTIFICATIOn.setText("jButton3");
+        IDENTIFICATIOn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EXITBTNActionPerformed(evt);
+                IDENTIFICATIOnActionPerformed(evt);
             }
         });
-        jPanel1.add(EXITBTN);
-        EXITBTN.setBounds(1280, 690, 73, 70);
+        jPanel1.add(IDENTIFICATIOn);
+        IDENTIFICATIOn.setBounds(73, 360, 340, 80);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,25 +118,28 @@ public class Home extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void StudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StudentActionPerformed
-        StudentInformation log = new StudentInformation();
-        log.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_StudentActionPerformed
-
-    private void TeacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TeacherActionPerformed
+    private void BACKBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKBTNActionPerformed
         try {
-            Login log = new Login();
-            log.setVisible(true);
+            AddExam addExam = new AddExam(user, title);
+            addExam.setVisible(true);
             this.dispose();
         } catch (SQLException ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Choices.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_TeacherActionPerformed
+      
+    }//GEN-LAST:event_BACKBTNActionPerformed
 
-    private void EXITBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EXITBTNActionPerformed
-       System.exit(0);
-    }//GEN-LAST:event_EXITBTNActionPerformed
+    private void MULTIPLECHOICEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MULTIPLECHOICEActionPerformed
+        MultipleChoiceFrame choiceFrame = new MultipleChoiceFrame(user, title);
+        choiceFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_MULTIPLECHOICEActionPerformed
+
+    private void IDENTIFICATIOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDENTIFICATIOnActionPerformed
+        SingleTextFrame frame = new SingleTextFrame(user, title);
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_IDENTIFICATIOnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -141,13 +158,13 @@ public class Home extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Choices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Choices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Choices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Choices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -157,16 +174,16 @@ public class Home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home().setVisible(true);
+                new Choices().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton EXITBTN;
-    private javax.swing.JButton Student;
-    private javax.swing.JButton Teacher;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton BACKBTN;
+    private javax.swing.JButton IDENTIFICATIOn;
+    private javax.swing.JButton MULTIPLECHOICE;
+    private javax.swing.JLabel blank;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

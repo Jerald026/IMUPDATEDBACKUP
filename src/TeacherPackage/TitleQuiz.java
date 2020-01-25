@@ -8,10 +8,12 @@ package TeacherPackage;
 import connectionPackage.DBconnection;
 import static connectionPackage.DBconnection.connect;
 import java.awt.Toolkit;
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +22,9 @@ import java.util.logging.Logger;
  * @author halla
  */
 public class TitleQuiz extends javax.swing.JFrame {
+
     String user;
+
     /**
      * Creates new form TitleQuiz
      */
@@ -36,19 +40,20 @@ public class TitleQuiz extends javax.swing.JFrame {
         int ysize = (int) tk.getScreenSize().getHeight();
         this.setSize(xsize, ysize);
     }
+
     public TitleQuiz(String user) {
         this.setUndecorated(true);
         this.setAlwaysOnTop(true);
         this.setResizable(false);
         this.setVisible(true);
         initComponents();
-           ERRORTV.setText("");
+        ERRORTV.setText("");
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xsize = (int) tk.getScreenSize().getWidth();
         int ysize = (int) tk.getScreenSize().getHeight();
         this.setSize(xsize, ysize);
-        this.user=user;
-        
+        this.user = user;
+
     }
 
     /**
@@ -72,13 +77,15 @@ public class TitleQuiz extends javax.swing.JFrame {
 
         jPanel1.setLayout(null);
 
+        ERRORTV.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
+        ERRORTV.setForeground(new java.awt.Color(255, 0, 51));
         ERRORTV.setText("jLabel1");
         jPanel1.add(ERRORTV);
-        ERRORTV.setBounds(824, 310, 210, 20);
+        ERRORTV.setBounds(840, 280, 440, 20);
         jPanel1.add(TextFTitleExam);
-        TextFTitleExam.setBounds(700, 250, 440, 40);
+        TextFTitleExam.setBounds(840, 220, 440, 50);
 
-        blank.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\BG\\TitleAdd.png")); // NOI18N
+        blank.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\Add Title BG.png")); // NOI18N
         blank.setText("jLabel1");
         jPanel1.add(blank);
         blank.setBounds(0, 0, 1965, 768);
@@ -90,7 +97,7 @@ public class TitleQuiz extends javax.swing.JFrame {
             }
         });
         jPanel1.add(ADDBTN);
-        ADDBTN.setBounds(813, 350, 230, 80);
+        ADDBTN.setBounds(940, 330, 240, 80);
 
         CANCELBTN.setText("jButton2");
         CANCELBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +106,7 @@ public class TitleQuiz extends javax.swing.JFrame {
             }
         });
         jPanel1.add(CANCELBTN);
-        CANCELBTN.setBounds(820, 470, 220, 70);
+        CANCELBTN.setBounds(940, 420, 240, 80);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -138,8 +145,8 @@ public class TitleQuiz extends javax.swing.JFrame {
         try {
             Connection con = DBconnection.connect();
             PreparedStatement pst = con.prepareStatement("SELECT * FROM QuizesTitle WHERE TA_ID = ? AND QT_Title = ?");
-            int mama= getID(user);
-            pst.setInt(1,mama);
+            int mama = getID(user);
+            pst.setInt(1, mama);
             pst.setString(2, TextFTitleExam.getText());
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
@@ -147,11 +154,14 @@ public class TitleQuiz extends javax.swing.JFrame {
             } else {
                 pst.close();
                 rs.close();
-                pst = con.prepareStatement("INSERT INTO QuizesTitle(TA_ID,QT_Title) VALUES(?,?)");
-                pst.setInt(1,  mama);
+                pst = con.prepareStatement("INSERT INTO QuizesTitle(TA_ID,QT_Title,QT_CODEGENERATE) VALUES(?,?,?)");
+                pst.setInt(1, mama);
                 pst.setString(2, TextFTitleExam.getText());
+                String easy = RandomString.digits + "ACEFGHJKLMNPQRUVWXYabcdefhijkprstuvwx";
+                RandomString tickets = new RandomString(6, new SecureRandom(), easy);
+                pst.setString(3, tickets.nextString());
                 pst.execute();
-                AddExam exam = new AddExam(user,TextFTitleExam.getText());
+                AddExam exam = new AddExam(user, TextFTitleExam.getText());
                 exam.setVisible(true);
                 this.dispose();
             }

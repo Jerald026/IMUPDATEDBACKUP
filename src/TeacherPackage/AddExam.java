@@ -159,12 +159,14 @@ public class AddExam extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(20, 130, 1110, 630);
 
-        LabelTitleEXAM.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        LabelTitleEXAM.setFont(new java.awt.Font("Bahnschrift", 1, 24)); // NOI18N
+        LabelTitleEXAM.setForeground(new java.awt.Color(255, 255, 255));
+        LabelTitleEXAM.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LabelTitleEXAM.setText("TITLE OF THE EXAM HERE");
         jPanel1.add(LabelTitleEXAM);
-        LabelTitleEXAM.setBounds(440, 40, 230, 40);
+        LabelTitleEXAM.setBounds(200, 20, 780, 80);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\BG\\AddExam.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\Add Question BG.png")); // NOI18N
         jLabel1.setText("jLabel1");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(0, 0, 1965, 768);
@@ -224,7 +226,7 @@ public class AddExam extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ADDBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ADDBTNActionPerformed
-        CreateQuestionFrame create = new CreateQuestionFrame(user,title);
+        Choices create = new Choices(user,title);
         create.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ADDBTNActionPerformed
@@ -232,11 +234,18 @@ public class AddExam extends javax.swing.JFrame {
   private String Questions_QE_Questions,Questions_QE_Condition,AnswersSingle_AN_Answers,AnswersSingle_AN_CorrectAns;
   private String AnswersSingle_AN_A,AnswersSingle_AN_B,AnswersSingle_AN_C,AnswersSingle_AN_D;
     private void EDITBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EDITBTNActionPerformed
-        UpdateQuestionFrame update = new UpdateQuestionFrame(user,title,Questions_TA_ID,Questions_QT_ID,Questions_QE_ID,
-        Questions_QE_Questions,Questions_QE_Condition,AnswersSingle_AN_Answers,AnswersSingle_AN_CorrectAns,
-        AnswersSingle_AN_A,AnswersSingle_AN_B,AnswersSingle_AN_C,AnswersSingle_AN_D);
-        update.setVisible(true);
-        this.dispose();
+        if(Questions_QE_Condition.equals("MULTIPLE")){
+            UpdateMultipleChoice choice = new UpdateMultipleChoice(user, title,  Questions_TA_ID,  Questions_QT_ID,  Questions_QE_ID,
+             Questions_QE_Questions,  Questions_QE_Condition,  AnswersSingle_AN_CorrectAns,
+             AnswersSingle_AN_A,  AnswersSingle_AN_B,  AnswersSingle_AN_C,  AnswersSingle_AN_D);
+            choice.setVisible(true);
+            this.dispose();
+        }else if(Questions_QE_Condition.equals("TEXT")){
+            UpdateSingleText singleText = new UpdateSingleText( user,  title,  Questions_TA_ID,  Questions_QT_ID,  Questions_QE_ID,
+             Questions_QE_Questions,  Questions_QE_Condition,  AnswersSingle_AN_Answers);
+            singleText.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_EDITBTNActionPerformed
 
     private void DELETEBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DELETEBTNActionPerformed

@@ -53,7 +53,6 @@ public class Register extends javax.swing.JFrame {
         RegisterUserNTextField = new javax.swing.JTextField();
         RegisterPassTextField = new javax.swing.JPasswordField();
         RegisterConfirmPTextField = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
         ERRORTV = new javax.swing.JLabel();
         blank = new javax.swing.JLabel();
         btnRegister = new javax.swing.JButton();
@@ -74,21 +73,12 @@ public class Register extends javax.swing.JFrame {
         jPanel1.add(RegisterConfirmPTextField);
         RegisterConfirmPTextField.setBounds(90, 530, 510, 50);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(1270, 10, 73, 23);
-
         ERRORTV.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         ERRORTV.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(ERRORTV);
         ERRORTV.setBounds(90, 600, 380, 20);
 
-        blank.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\BG\\Register.png")); // NOI18N
+        blank.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\Register BG.png")); // NOI18N
         blank.setText("jLabel1");
         jPanel1.add(blank);
         blank.setBounds(0, 0, 1965, 768);
@@ -109,7 +99,7 @@ public class Register extends javax.swing.JFrame {
             }
         });
         jPanel1.add(BACKBTN);
-        BACKBTN.setBounds(13, 10, 50, 50);
+        BACKBTN.setBounds(23, 20, 80, 70);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,10 +167,6 @@ public class Register extends javax.swing.JFrame {
        
     }//GEN-LAST:event_btnRegisterActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      System.exit(0);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void BACKBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKBTNActionPerformed
        try {
             Login teacherlogin = new Login();
@@ -236,7 +222,6 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JTextField RegisterUserNTextField;
     private javax.swing.JLabel blank;
     private javax.swing.JButton btnRegister;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 

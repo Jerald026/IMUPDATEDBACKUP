@@ -121,6 +121,7 @@ public class TeacherQuizzes extends javax.swing.JFrame {
         ADDBTN = new javax.swing.JButton();
         DELETEBTN = new javax.swing.JButton();
         LOGOUTBTN = new javax.swing.JButton();
+        BACKBTN = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1965, 1080));
@@ -158,7 +159,7 @@ public class TeacherQuizzes extends javax.swing.JFrame {
         jPanel1.add(ERRORTV);
         ERRORTV.setBounds(30, 740, 330, 20);
 
-        blank.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\BG\\Quizzes.png")); // NOI18N
+        blank.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\Exam BG.png")); // NOI18N
         blank.setText("jLabel1");
         jPanel1.add(blank);
         blank.setBounds(0, 0, 1965, 768);
@@ -170,7 +171,7 @@ public class TeacherQuizzes extends javax.swing.JFrame {
             }
         });
         jPanel1.add(OPENBTN);
-        OPENBTN.setBounds(1030, 233, 270, 80);
+        OPENBTN.setBounds(1030, 253, 270, 70);
 
         ADDBTN.setText("jButton2");
         ADDBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -179,7 +180,7 @@ public class TeacherQuizzes extends javax.swing.JFrame {
             }
         });
         jPanel1.add(ADDBTN);
-        ADDBTN.setBounds(1030, 340, 270, 70);
+        ADDBTN.setBounds(1030, 350, 270, 80);
 
         DELETEBTN.setText("jButton1");
         DELETEBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -188,7 +189,7 @@ public class TeacherQuizzes extends javax.swing.JFrame {
             }
         });
         jPanel1.add(DELETEBTN);
-        DELETEBTN.setBounds(1030, 450, 270, 70);
+        DELETEBTN.setBounds(1030, 450, 270, 80);
 
         LOGOUTBTN.setText("jButton2");
         LOGOUTBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -198,6 +199,15 @@ public class TeacherQuizzes extends javax.swing.JFrame {
         });
         jPanel1.add(LOGOUTBTN);
         LOGOUTBTN.setBounds(1030, 560, 270, 70);
+
+        BACKBTN.setText("jButton1");
+        BACKBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BACKBTNActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BACKBTN);
+        BACKBTN.setBounds(20, 10, 73, 50);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -278,6 +288,12 @@ public class TeacherQuizzes extends javax.swing.JFrame {
         getDisplay();
     }//GEN-LAST:event_jTable1KeyPressed
 
+    private void BACKBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKBTNActionPerformed
+       TitleQuiz quiz = new TitleQuiz(user);
+       quiz.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_BACKBTNActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -319,6 +335,7 @@ public class TeacherQuizzes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ADDBTN;
+    private javax.swing.JButton BACKBTN;
     private javax.swing.JButton DELETEBTN;
     private javax.swing.JLabel ERRORTV;
     private javax.swing.JButton LOGOUTBTN;

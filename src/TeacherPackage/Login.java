@@ -80,17 +80,19 @@ public class Login extends javax.swing.JFrame {
 
         LoginUserTextField.setBorder(null);
         jPanel1.add(LoginUserTextField);
-        LoginUserTextField.setBounds(850, 290, 390, 50);
+        LoginUserTextField.setBounds(850, 300, 390, 40);
 
         LoginPassTextField.setBorder(null);
         jPanel1.add(LoginPassTextField);
-        LoginPassTextField.setBounds(850, 410, 390, 50);
+        LoginPassTextField.setBounds(850, 420, 390, 40);
 
+        ERRORTV.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
+        ERRORTV.setForeground(new java.awt.Color(255, 0, 51));
         ERRORTV.setText("jLabel2");
         jPanel1.add(ERRORTV);
-        ERRORTV.setBounds(850, 540, 250, 40);
+        ERRORTV.setBounds(850, 530, 250, 40);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\BG\\Login.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\Login BG.png")); // NOI18N
         jLabel1.setText("jLabel1");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(0, 0, 1965, 768);
