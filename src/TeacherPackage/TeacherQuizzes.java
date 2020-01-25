@@ -58,7 +58,7 @@ public class TeacherQuizzes extends javax.swing.JFrame {
 
     private void updatetable1(int user) {
         try {
-            String sql = "SELECT QT_ID,QT_Title FROM QuizesTitle WHERE TA_ID = '"+user+"'";
+            String sql = "SELECT QT_ID,QT_Title,QT_CODEGENERATE FROM QuizesTitle WHERE TA_ID = '"+user+"'";
             Connection conn = connect();
             PreparedStatement pst = conn.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();

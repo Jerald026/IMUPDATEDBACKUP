@@ -62,7 +62,8 @@ public class UpdateMultipleChoice extends javax.swing.JFrame {
         int xsize = (int) tk.getScreenSize().getWidth();
         int ysize = (int) tk.getScreenSize().getHeight();
         this.setSize(xsize, ysize);
-
+        ERRORLABEl.setVisible(false);
+        SUCCESSLABEL.setVisible(false);
         this.title = title;
         this.user = user;
         ComboBoxChoices.removeAllItems();
@@ -114,6 +115,8 @@ public class UpdateMultipleChoice extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         TITLETOP = new javax.swing.JLabel();
+        SUCCESSLABEL = new javax.swing.JLabel();
+        ERRORLABEl = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         BACKBTN = new javax.swing.JButton();
 
@@ -126,14 +129,14 @@ public class UpdateMultipleChoice extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jLabel2.setText("Question:");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(420, 180, 190, 50);
+        jLabel2.setBounds(450, 180, 190, 50);
 
         TEXTAREAQTN.setColumns(20);
         TEXTAREAQTN.setRows(5);
         jScrollPane1.setViewportView(TEXTAREAQTN);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(420, 230, 690, 130);
+        jScrollPane1.setBounds(450, 220, 690, 130);
 
         ComboBoxChoices.setBackground(new java.awt.Color(0, 102, 51));
         ComboBoxChoices.setForeground(new java.awt.Color(255, 255, 255));
@@ -185,6 +188,16 @@ public class UpdateMultipleChoice extends javax.swing.JFrame {
         TITLETOP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel1.add(TITLETOP);
         TITLETOP.setBounds(340, 30, 690, 70);
+
+        SUCCESSLABEL.setFont(new java.awt.Font("Bahnschrift", 3, 14)); // NOI18N
+        SUCCESSLABEL.setForeground(new java.awt.Color(0, 153, 51));
+        jPanel1.add(SUCCESSLABEL);
+        SUCCESSLABEL.setBounds(450, 350, 320, 30);
+
+        ERRORLABEl.setFont(new java.awt.Font("Bahnschrift", 3, 14)); // NOI18N
+        ERRORLABEl.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(ERRORLABEl);
+        ERRORLABEl.setBounds(450, 350, 320, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\Multiple BG.png")); // NOI18N
         jLabel1.setText("jLabel1");
@@ -294,7 +307,9 @@ public int getIDQuizTitle(String title) throws SQLException {
             pst = con.prepareStatement(SQL2);
             pst.execute();
             pst.close();
-            System.out.println("UPDATED");
+            SUCCESSLABEL.setVisible(true);
+            SUCCESSLABEL.setText("UPDATED");
+            
             setToEmpty();
         } catch (SQLException ex) {
             Logger.getLogger(UpdateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -350,7 +365,9 @@ public int getIDQuizTitle(String title) throws SQLException {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BACKBTN;
     private javax.swing.JComboBox<String> ComboBoxChoices;
+    private javax.swing.JLabel ERRORLABEl;
     private javax.swing.JButton MULTIADD;
+    private javax.swing.JLabel SUCCESSLABEL;
     private javax.swing.JTextArea TEXTAREAQTN;
     private javax.swing.JLabel TITLETOP;
     private javax.swing.JTextField TextFieldA;

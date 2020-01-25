@@ -9,7 +9,8 @@ TA_Password varchar(40) NOT NULL,
 CREATE TABLE QuizesTitle(
 QT_ID  INT IDENTITY(1,1) PRIMARY KEY, 
 TA_ID INT FOREIGN KEY REFERENCES Teacher_Account(TA_ID),
-QT_Title varchar(50) NOT NULL
+QT_Title varchar(50) NOT NULL,
+QT_CODEGENERATE varchar(50) UNIQUE
 );
 
 CREATE TABLE Questions(

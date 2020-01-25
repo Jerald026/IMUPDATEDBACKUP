@@ -20,8 +20,10 @@ import java.util.logging.Logger;
  * @author halla
  */
 public class SingleTextFrame extends javax.swing.JFrame {
+
     private String user;
     private String title;
+
     /**
      * Creates new form Home
      */
@@ -37,19 +39,22 @@ public class SingleTextFrame extends javax.swing.JFrame {
         int ysize = (int) tk.getScreenSize().getHeight();
         this.setSize(xsize, ysize);
     }
-     public SingleTextFrame(String user,String title) {
+
+    public SingleTextFrame(String user, String title) {
         this.setUndecorated(true);
         this.setAlwaysOnTop(true);
         this.setResizable(false);
         this.setVisible(true);
         initComponents();
-        this.user=user;
-        this.title=title;
+        this.user = user;
+        this.title = title;
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xsize = (int) tk.getScreenSize().getWidth();
         int ysize = (int) tk.getScreenSize().getHeight();
         this.setSize(xsize, ysize);
         TITLETOP.setText(title);
+        ERRORLABEl.setVisible(false);
+        SUCCESSLABEL.setVisible(false);
     }
 
     /**
@@ -69,6 +74,8 @@ public class SingleTextFrame extends javax.swing.JFrame {
         SINGLEADD = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         TITLETOP = new javax.swing.JLabel();
+        SUCCESSLABEL = new javax.swing.JLabel();
+        ERRORLABEl = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         BACKBTN = new javax.swing.JButton();
 
@@ -113,6 +120,16 @@ public class SingleTextFrame extends javax.swing.JFrame {
         TITLETOP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel1.add(TITLETOP);
         TITLETOP.setBounds(340, 60, 690, 60);
+
+        SUCCESSLABEL.setFont(new java.awt.Font("Bahnschrift", 3, 14)); // NOI18N
+        SUCCESSLABEL.setForeground(new java.awt.Color(0, 153, 51));
+        jPanel1.add(SUCCESSLABEL);
+        SUCCESSLABEL.setBounds(450, 330, 320, 30);
+
+        ERRORLABEl.setFont(new java.awt.Font("Bahnschrift", 3, 14)); // NOI18N
+        ERRORLABEl.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(ERRORLABEl);
+        ERRORLABEl.setBounds(450, 330, 320, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\Identification BG.png")); // NOI18N
         jLabel1.setText("jLabel1");
@@ -199,9 +216,15 @@ public class SingleTextFrame extends javax.swing.JFrame {
         return 0;
     }
 
-    
+
     private void SINGLEADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SINGLEADDActionPerformed
         try {
+            if(TextFieldAnswerText.getText().length()==0){
+                ERRORLABEl.setVisible(true);
+                SUCCESSLABEL.setVisible(false);
+                ERRORLABEl.setText("The answer is empty");
+                return;
+            }
             Connection con = connect();
             PreparedStatement pst = con.prepareStatement("SELECT * FROM Questions WHERE QE_Questions = ? AND TA_ID =? AND QT_ID = ?");
             pst.setString(1, TEXTAREAQTN.getText());
@@ -209,7 +232,9 @@ public class SingleTextFrame extends javax.swing.JFrame {
             pst.setInt(3, getIDQuizTitle(title));
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
-                System.out.println("User already registered");
+                ERRORLABEl.setVisible(true);
+                SUCCESSLABEL.setVisible(false);
+                ERRORLABEl.setText("The question is already in the list");
                 return;
             } else {
                 String QTN = TEXTAREAQTN.getText();
@@ -233,7 +258,9 @@ public class SingleTextFrame extends javax.swing.JFrame {
                 pst.execute();
                 pst.close();
             }
-            System.out.println("ADDED");
+            ERRORLABEl.setVisible(false);
+            SUCCESSLABEL.setVisible(true);
+            SUCCESSLABEL.setText("SUCCESSFULLY ADDED");
             setToEmpty();
         } catch (SQLException ex) {
             Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -288,7 +315,9 @@ public class SingleTextFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BACKBTN;
+    private javax.swing.JLabel ERRORLABEl;
     private javax.swing.JButton SINGLEADD;
+    private javax.swing.JLabel SUCCESSLABEL;
     private javax.swing.JTextArea TEXTAREAQTN;
     private javax.swing.JLabel TITLETOP;
     private javax.swing.JTextField TextFieldAnswerText;

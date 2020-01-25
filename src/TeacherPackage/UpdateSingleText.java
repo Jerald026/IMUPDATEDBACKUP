@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -63,6 +64,8 @@ public class UpdateSingleText extends javax.swing.JFrame {
         TEXTAREAQTN.setText(this.Questions_QE_Questions);
             TextFieldAnswerText.setText(this.AnswersSingle_AN_Answers);
            TITLETOP.setText(title);
+              ERRORLABEl.setVisible(false);
+        SUCCESSLABEL.setVisible(false);
     }
 
 
@@ -83,6 +86,8 @@ public class UpdateSingleText extends javax.swing.JFrame {
         SINGLEADD = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         TITLETOP = new javax.swing.JLabel();
+        SUCCESSLABEL = new javax.swing.JLabel();
+        ERRORLABEl = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         BACKBTN = new javax.swing.JButton();
 
@@ -127,6 +132,16 @@ public class UpdateSingleText extends javax.swing.JFrame {
         TITLETOP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel1.add(TITLETOP);
         TITLETOP.setBounds(340, 60, 690, 60);
+
+        SUCCESSLABEL.setFont(new java.awt.Font("Bahnschrift", 3, 14)); // NOI18N
+        SUCCESSLABEL.setForeground(new java.awt.Color(0, 153, 51));
+        jPanel1.add(SUCCESSLABEL);
+        SUCCESSLABEL.setBounds(450, 330, 320, 30);
+
+        ERRORLABEl.setFont(new java.awt.Font("Bahnschrift", 3, 14)); // NOI18N
+        ERRORLABEl.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(ERRORLABEl);
+        ERRORLABEl.setBounds(450, 330, 320, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\Identification BG.png")); // NOI18N
         jLabel1.setText("jLabel1");
@@ -215,44 +230,30 @@ public class UpdateSingleText extends javax.swing.JFrame {
 
     
     private void SINGLEADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SINGLEADDActionPerformed
-        try {
+       try {
+            String QTN = TEXTAREAQTN.getText();
+            String answer = TextFieldAnswerText.getText();
+            int QuizTitleID = getIDQuizTitle(title);
             Connection con = connect();
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM Questions WHERE QE_Questions = ? AND TA_ID =? AND QT_ID = ?");
-            pst.setString(1, TEXTAREAQTN.getText());
-            pst.setInt(2, getUserID(user));
-            pst.setInt(3, getIDQuizTitle(title));
-            ResultSet rs = pst.executeQuery();
-            if (rs.next()) {
-                System.out.println("User already registered");
-                return;
-            } else {
-                String QTN = TEXTAREAQTN.getText();
-                String answer = TextFieldAnswerText.getText();
-                int QuizTitleID = getIDQuizTitle(title);
-                pst.close();
-                rs.close();
-                pst = con.prepareStatement("INSERT INTO Questions(TA_ID,QT_ID,QE_Questions,QE_Condition) VALUES(?,?,?,?)");
-                pst.setInt(1, getUserID(user));
-                pst.setInt(2, QuizTitleID);
-                pst.setString(3, QTN);
-                pst.setString(4, "TEXT");
-                pst.execute();
-                pst.close();
-
-                System.out.println(getIDQuestions(QTN));
-                pst = con.prepareStatement("INSERT INTO AnswersSingle(QE_ID,QT_ID,AN_Answers) VALUES(?,?,?)");
-                pst.setInt(1, getIDQuestions(QTN));
-                pst.setInt(2, QuizTitleID);
-                pst.setString(3, answer);
-                pst.execute();
-                pst.close();
-            }
-            System.out.println("ADDED");
+            String SQL = "UPDATE Questions \n"
+                    + "SET QE_Questions = '"+QTN+"', QE_Condition = 'MULTIPLE'\n"
+                    + "WHERE TA_ID = '"+Questions_TA_ID+"' AND QT_ID = '"+Questions_QT_ID+"'";
+            PreparedStatement pst = con.prepareStatement(SQL);
+            pst.execute();
+            pst.close();
+             
+               String SQL2 = "UPDATE AnswersSingle \n"
+                    + "SET AN_Answers = '"+answer+"' \n"
+                    + "WHERE QE_ID = '"+Questions_QE_ID+"' AND QT_ID = '"+Questions_QT_ID+"'";
+            pst = con.prepareStatement(SQL2);
+            pst.execute();
+            pst.close();
+            SUCCESSLABEL.setVisible(true);
+           SUCCESSLABEL.setText("Successfully");
+         
             setToEmpty();
-        } catch (SQLException ex) {
-            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UpdateSingleText.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UpdateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_SINGLEADDActionPerformed
 
@@ -306,7 +307,9 @@ public class UpdateSingleText extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BACKBTN;
+    private javax.swing.JLabel ERRORLABEl;
     private javax.swing.JButton SINGLEADD;
+    private javax.swing.JLabel SUCCESSLABEL;
     private javax.swing.JTextArea TEXTAREAQTN;
     private javax.swing.JLabel TITLETOP;
     private javax.swing.JTextField TextFieldAnswerText;

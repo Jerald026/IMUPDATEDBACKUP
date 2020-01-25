@@ -63,7 +63,9 @@ public class MultipleChoiceFrame extends javax.swing.JFrame {
         ComboBoxChoices.addItem("B");
         ComboBoxChoices.addItem("C");
         ComboBoxChoices.addItem("D");
-       TITLETOP.setText(title);
+        TITLETOP.setText(title);
+        ERRORLABEl.setVisible(false);
+        SUCCESSLABEL.setVisible(false);
     }
 
     /**
@@ -91,6 +93,8 @@ public class MultipleChoiceFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         TITLETOP = new javax.swing.JLabel();
+        SUCCESSLABEL = new javax.swing.JLabel();
+        ERRORLABEl = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         BACKBTN = new javax.swing.JButton();
 
@@ -162,6 +166,16 @@ public class MultipleChoiceFrame extends javax.swing.JFrame {
         TITLETOP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel1.add(TITLETOP);
         TITLETOP.setBounds(340, 30, 690, 70);
+
+        SUCCESSLABEL.setFont(new java.awt.Font("Bahnschrift", 3, 14)); // NOI18N
+        SUCCESSLABEL.setForeground(new java.awt.Color(0, 153, 51));
+        jPanel1.add(SUCCESSLABEL);
+        SUCCESSLABEL.setBounds(420, 360, 320, 30);
+
+        ERRORLABEl.setFont(new java.awt.Font("Bahnschrift", 3, 14)); // NOI18N
+        ERRORLABEl.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(ERRORLABEl);
+        ERRORLABEl.setBounds(420, 360, 320, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\Multiple BG.png")); // NOI18N
         jLabel1.setText("jLabel1");
@@ -259,7 +273,9 @@ public int getIDQuizTitle(String title) throws SQLException {
             pst.setInt(3, getIDQuizTitle(title));
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
-                System.out.println("User already registered");
+                ERRORLABEl.setVisible(true);
+                SUCCESSLABEL.setVisible(false);
+                ERRORLABEl.setText("The question is already in the list");
                 return;
             } else {
                 pst.close();
@@ -282,14 +298,32 @@ public int getIDQuizTitle(String title) throws SQLException {
                 pst = con.prepareStatement("INSERT INTO AnswersSingle(QE_ID,QT_ID,AN_A,AN_B,AN_C,AN_D,AN_CorrectAns) VALUES(?,?,?,?,?,?,?)");
                 pst.setInt(1, getIDQuestions(QTN));
                 pst.setInt(2, QuizTitleID);
-                pst.setString(3, a);
-                pst.setString(4, b);
-                pst.setString(5, c);
-                pst.setString(6, d);
+                if (a.length() == 0) {
+                    pst.setString(3, "NONE");
+                } else {
+                    pst.setString(3, a);
+                }
+                if (b.length() == 0) {
+                    pst.setString(4, "NONE");
+                } else {
+                    pst.setString(4, b);
+                }
+                if (c.length() == 0) {
+                    pst.setString(5, "NONE");
+                } else {
+                    pst.setString(5, c);
+                }
+                if (d.length() == 0) {
+                    pst.setString(6, "NONE");
+                } else {
+                    pst.setString(6, d);
+                }
                 pst.setString(7, correctAnsw);
                 pst.execute();
                 pst.close();
-                System.out.println("ADDED");
+                ERRORLABEl.setVisible(false);
+                SUCCESSLABEL.setVisible(true);
+                SUCCESSLABEL.setText("SUCCESSFULLY ADDED");
                 setToEmpty();
             }
         } catch (SQLException ex) {
@@ -344,7 +378,9 @@ public int getIDQuizTitle(String title) throws SQLException {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BACKBTN;
     private javax.swing.JComboBox<String> ComboBoxChoices;
+    private javax.swing.JLabel ERRORLABEl;
     private javax.swing.JButton MULTIADD;
+    private javax.swing.JLabel SUCCESSLABEL;
     private javax.swing.JTextArea TEXTAREAQTN;
     private javax.swing.JLabel TITLETOP;
     private javax.swing.JTextField TextFieldA;
