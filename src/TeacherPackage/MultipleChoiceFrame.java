@@ -266,6 +266,14 @@ public int getIDQuizTitle(String title) throws SQLException {
 
     private void MULTIADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MULTIADDActionPerformed
         try {
+            if(TextFieldA.getText().length()==0 || TEXTAREAQTN.getText().length()==0
+                    ||TextFieldB.getText().length()==0 ||TextFieldC.getText().length()==0 ||
+                    TextFieldD.getText().length()==0){
+                ERRORLABEl.setVisible(true);
+                SUCCESSLABEL.setVisible(false);
+                ERRORLABEl.setText("The answer is empty");
+                return;
+            }
             Connection con = connect();
             PreparedStatement pst = con.prepareStatement("SELECT * FROM Questions WHERE QE_Questions = ? AND TA_ID = ? AND QT_ID = ?");
             pst.setString(1, TEXTAREAQTN.getText());

@@ -219,7 +219,7 @@ public class SingleTextFrame extends javax.swing.JFrame {
 
     private void SINGLEADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SINGLEADDActionPerformed
         try {
-            if(TextFieldAnswerText.getText().length()==0){
+            if(TextFieldAnswerText.getText().length()==0 || TEXTAREAQTN.getText().length()==0){
                 ERRORLABEl.setVisible(true);
                 SUCCESSLABEL.setVisible(false);
                 ERRORLABEl.setText("The answer is empty");

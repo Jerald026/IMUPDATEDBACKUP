@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TeacherPackage;
+package StudentPackage;
 
+import TeacherPackage.*;
 import StudentPackage.StudentInformation;
 import java.awt.Toolkit;
 import java.sql.SQLException;
@@ -15,13 +16,12 @@ import java.util.logging.Logger;
  *
  * @author halla
  */
-public class Choices extends javax.swing.JFrame {
-    private String user;
-    private String title;
+public class StudentAnswerText extends javax.swing.JFrame {
+
     /**
      * Creates new form Home
      */
-    public Choices() {
+    public StudentAnswerText() {
         this.setUndecorated(true);
         this.setAlwaysOnTop(true);
         this.setResizable(false);
@@ -32,20 +32,6 @@ public class Choices extends javax.swing.JFrame {
         int xsize = (int) tk.getScreenSize().getWidth();
         int ysize = (int) tk.getScreenSize().getHeight();
         this.setSize(xsize, ysize);
-    }
-    public Choices(String user, String title) {
-        this.setUndecorated(true);
-        this.setAlwaysOnTop(true);
-        this.setResizable(false);
-        this.setVisible(true);
-        initComponents();
-        this.user=user;
-        this.title=title;
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        int xsize = (int) tk.getScreenSize().getWidth();
-        int ysize = (int) tk.getScreenSize().getHeight();
-        this.setSize(xsize, ysize);
-        TITLETOP.setText(title);
     }
 
     /**
@@ -59,10 +45,14 @@ public class Choices extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         TITLETOP = new javax.swing.JLabel();
-        blank = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TEXTAREAQTN = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        NEXTBTN = new javax.swing.JButton();
         BACKBTN = new javax.swing.JButton();
-        MULTIPLECHOICE = new javax.swing.JButton();
-        IDENTIFICATIOn = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        TextFieldAnswer = new javax.swing.JTextField();
+        BACKGROUND = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1965, 1080));
@@ -73,39 +63,39 @@ public class Choices extends javax.swing.JFrame {
         TITLETOP.setFont(new java.awt.Font("Bahnschrift", 1, 24)); // NOI18N
         TITLETOP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel1.add(TITLETOP);
-        TITLETOP.setBounds(340, 60, 680, 60);
+        TITLETOP.setBounds(340, 50, 690, 50);
 
-        blank.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\Choices BG.png")); // NOI18N
-        blank.setText("jLabel1");
-        jPanel1.add(blank);
-        blank.setBounds(0, 0, 1965, 768);
+        TEXTAREAQTN.setColumns(20);
+        TEXTAREAQTN.setRows(5);
+        jScrollPane1.setViewportView(TEXTAREAQTN);
 
-        BACKBTN.setText("jButton1");
-        BACKBTN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BACKBTNActionPerformed(evt);
-            }
-        });
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(60, 220, 970, 140);
+
+        jLabel2.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        jLabel2.setText("Answer: ");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(320, 410, 110, 50);
+
+        NEXTBTN.setText("NEXT");
+        jPanel1.add(NEXTBTN);
+        NEXTBTN.setBounds(1240, 710, 80, 30);
+
+        BACKBTN.setText("BACK");
         jPanel1.add(BACKBTN);
-        BACKBTN.setBounds(20, 40, 80, 60);
+        BACKBTN.setBounds(1129, 710, 80, 30);
 
-        MULTIPLECHOICE.setText("jButton2");
-        MULTIPLECHOICE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MULTIPLECHOICEActionPerformed(evt);
-            }
-        });
-        jPanel1.add(MULTIPLECHOICE);
-        MULTIPLECHOICE.setBounds(70, 240, 350, 80);
+        jLabel7.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        jLabel7.setText("Question:");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(60, 170, 130, 50);
+        jPanel1.add(TextFieldAnswer);
+        TextFieldAnswer.setBounds(430, 410, 290, 80);
 
-        IDENTIFICATIOn.setText("jButton3");
-        IDENTIFICATIOn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IDENTIFICATIOnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(IDENTIFICATIOn);
-        IDENTIFICATIOn.setBounds(73, 360, 340, 80);
+        BACKGROUND.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\Answering BG.png")); // NOI18N
+        BACKGROUND.setText("jLabel1");
+        jPanel1.add(BACKGROUND);
+        BACKGROUND.setBounds(0, 0, 1965, 768);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,29 +115,6 @@ public class Choices extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BACKBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKBTNActionPerformed
-        try {
-            AddExam addExam = new AddExam(user, title);
-            addExam.setVisible(true);
-            this.dispose();
-        } catch (SQLException ex) {
-            Logger.getLogger(Choices.class.getName()).log(Level.SEVERE, null, ex);
-        }
-      
-    }//GEN-LAST:event_BACKBTNActionPerformed
-
-    private void MULTIPLECHOICEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MULTIPLECHOICEActionPerformed
-        MultipleChoiceFrame choiceFrame = new MultipleChoiceFrame(user, title);
-        choiceFrame.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_MULTIPLECHOICEActionPerformed
-
-    private void IDENTIFICATIOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDENTIFICATIOnActionPerformed
-        SingleTextFrame frame = new SingleTextFrame(user, title);
-        frame.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_IDENTIFICATIOnActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -165,14 +132,26 @@ public class Choices extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Choices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentAnswerText.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Choices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentAnswerText.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Choices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentAnswerText.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Choices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentAnswerText.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -181,17 +160,21 @@ public class Choices extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Choices().setVisible(true);
+                new StudentAnswerText().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BACKBTN;
-    private javax.swing.JButton IDENTIFICATIOn;
-    private javax.swing.JButton MULTIPLECHOICE;
+    private javax.swing.JLabel BACKGROUND;
+    private javax.swing.JButton NEXTBTN;
+    private javax.swing.JTextArea TEXTAREAQTN;
     private javax.swing.JLabel TITLETOP;
-    private javax.swing.JLabel blank;
+    private javax.swing.JTextField TextFieldAnswer;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

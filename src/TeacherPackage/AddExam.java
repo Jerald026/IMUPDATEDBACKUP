@@ -268,6 +268,15 @@ public class AddExam extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_DELETEBTNActionPerformed
 
+    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
+      getDisplay();
+    }//GEN-LAST:event_jTable1KeyPressed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        getDisplay();
+        System.out.println(Questions_TA_ID+" "+Questions_QT_ID+" "+Questions_QE_ID);
+    }//GEN-LAST:event_jTable1MouseClicked
+
     private void BACKBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKBTNActionPerformed
         try {
             TeacherQuizzes teach = new TeacherQuizzes(user);
@@ -277,15 +286,6 @@ public class AddExam extends javax.swing.JFrame {
             Logger.getLogger(AddExam.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BACKBTNActionPerformed
-
-    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
-      getDisplay();
-    }//GEN-LAST:event_jTable1KeyPressed
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        getDisplay();
-        System.out.println(Questions_TA_ID+" "+Questions_QT_ID+" "+Questions_QE_ID);
-    }//GEN-LAST:event_jTable1MouseClicked
   public void getDisplay(){
         try{
             Connection conn=connect();

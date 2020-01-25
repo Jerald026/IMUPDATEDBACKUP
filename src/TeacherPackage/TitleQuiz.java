@@ -68,6 +68,7 @@ public class TitleQuiz extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         ERRORTV = new javax.swing.JLabel();
         TextFTitleExam = new javax.swing.JTextField();
+        MINUTESSPINNER = new javax.swing.JSpinner();
         blank = new javax.swing.JLabel();
         ADDBTN = new javax.swing.JButton();
         CANCELBTN = new javax.swing.JButton();
@@ -81,9 +82,14 @@ public class TitleQuiz extends javax.swing.JFrame {
         ERRORTV.setForeground(new java.awt.Color(255, 0, 51));
         ERRORTV.setText("jLabel1");
         jPanel1.add(ERRORTV);
-        ERRORTV.setBounds(840, 280, 440, 20);
+        ERRORTV.setBounds(850, 460, 440, 20);
         jPanel1.add(TextFTitleExam);
         TextFTitleExam.setBounds(840, 220, 440, 50);
+
+        MINUTESSPINNER.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
+        MINUTESSPINNER.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jPanel1.add(MINUTESSPINNER);
+        MINUTESSPINNER.setBounds(1010, 400, 90, 40);
 
         blank.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\Add Title BG.png")); // NOI18N
         blank.setText("jLabel1");
@@ -97,7 +103,7 @@ public class TitleQuiz extends javax.swing.JFrame {
             }
         });
         jPanel1.add(ADDBTN);
-        ADDBTN.setBounds(940, 330, 240, 80);
+        ADDBTN.setBounds(940, 490, 240, 80);
 
         CANCELBTN.setText("jButton2");
         CANCELBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +112,7 @@ public class TitleQuiz extends javax.swing.JFrame {
             }
         });
         jPanel1.add(CANCELBTN);
-        CANCELBTN.setBounds(940, 420, 240, 80);
+        CANCELBTN.setBounds(940, 590, 240, 80);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,12 +160,27 @@ public class TitleQuiz extends javax.swing.JFrame {
             } else {
                 pst.close();
                 rs.close();
-                pst = con.prepareStatement("INSERT INTO QuizesTitle(TA_ID,QT_Title,QT_CODEGENERATE) VALUES(?,?,?)");
+                pst = con.prepareStatement("INSERT INTO QuizesTitle(TA_ID,QT_Title,QT_CODEGENERATE,QT_TIME) VALUES(?,?,?,?)");
                 pst.setInt(1, mama);
                 pst.setString(2, TextFTitleExam.getText());
+                
+                
                 String easy = RandomString.digits + "ACEFGHJKLMNPQRUVWXYabcdefhijkprstuvwx";
                 RandomString tickets = new RandomString(6, new SecureRandom(), easy);
-                pst.setString(3, tickets.nextString());
+                Connection checkcon=connect();
+                PreparedStatement check=checkcon.prepareStatement("SELECT * FROM QuizesTitle WHERE TA_ID = ? AND QT_ID = ? AND QT_CODEGENERATE = ?");
+                check.setInt(1, mama);
+                check.setString(2, TextFTitleExam.getText());
+                 check.setString(3, tickets.nextString());
+                ResultSet checkSet=check.executeQuery();
+                if(checkSet.next()){
+                    RandomString gen = new RandomString(8, ThreadLocalRandom.current());
+                     pst.setString(3, gen.nextString());
+                }else{
+                    pst.setString(3, tickets.nextString());
+                }
+                
+                pst.setInt(4, (Integer)MINUTESSPINNER.getValue());
                 pst.execute();
                 AddExam exam = new AddExam(user, TextFTitleExam.getText());
                 exam.setVisible(true);
@@ -219,6 +240,7 @@ public class TitleQuiz extends javax.swing.JFrame {
     private javax.swing.JButton ADDBTN;
     private javax.swing.JButton CANCELBTN;
     private javax.swing.JLabel ERRORTV;
+    private javax.swing.JSpinner MINUTESSPINNER;
     private javax.swing.JTextField TextFTitleExam;
     private javax.swing.JLabel blank;
     private javax.swing.JPanel jPanel1;

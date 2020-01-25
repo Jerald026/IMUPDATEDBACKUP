@@ -72,6 +72,7 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         RegisterBTN = new javax.swing.JButton();
         EnterBTN = new javax.swing.JButton();
+        BACKTBN = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1965, 1080));
@@ -115,14 +116,22 @@ public class Login extends javax.swing.JFrame {
         jPanel1.add(EnterBTN);
         EnterBTN.setBounds(1110, 533, 140, 70);
 
+        BACKTBN.setText("jButton1");
+        BACKTBN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BACKTBNActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BACKTBN);
+        BACKTBN.setBounds(10, 10, 50, 50);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1965, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1975, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,6 +171,12 @@ public class Login extends javax.swing.JFrame {
             System.out.println(e);
         }
     }//GEN-LAST:event_EnterBTNActionPerformed
+
+    private void BACKTBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKTBNActionPerformed
+     Home home = new Home();
+     home.setVisible(true);
+     this.dispose();
+    }//GEN-LAST:event_BACKTBNActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,6 +218,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BACKTBN;
     private javax.swing.JLabel ERRORTV;
     private javax.swing.JButton EnterBTN;
     private javax.swing.JPasswordField LoginPassTextField;

@@ -15,8 +15,6 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author halla
@@ -121,7 +119,7 @@ public class Register extends javax.swing.JFrame {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
           try {
-            if (RegisterFirstNTextField.getText().equals("") || RegisterLTextField.getText().equals("") || RegisterUserNTextField.getText().equals("") || RegisterPassTextField.getPassword().equals("") || RegisterConfirmPTextField.getPassword().equals("")) {
+            if (RegisterFirstNTextField.getText().equals("") || RegisterLTextField.getText().equals("") || RegisterUserNTextField.getText().equals("") || RegisterPassTextField.getPassword().length==0|| RegisterConfirmPTextField.getPassword().length==0) {
                  ERRORTV.setText("Fill Up all the Fields");
                 return;
             }
@@ -161,7 +159,7 @@ public class Register extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
-    }                                         
+    }                                        
 
       private void ewanko(java.awt.event.ActionEvent evt) {                                     
        

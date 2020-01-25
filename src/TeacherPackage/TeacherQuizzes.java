@@ -54,6 +54,7 @@ public class TeacherQuizzes extends javax.swing.JFrame {
         this.setSize(xsize, ysize);
         updatetable1(getUserID(user));
          jTable1.setDefaultEditor(Object.class, null);
+         ERRORTV.setVisible(false);
     }
 
     private void updatetable1(int user) {
@@ -154,10 +155,12 @@ public class TeacherQuizzes extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(30, 170, 940, 560);
 
-        ERRORTV.setFont(new java.awt.Font("Baskerville Old Face", 0, 14)); // NOI18N
+        ERRORTV.setFont(new java.awt.Font("Bahnschrift", 2, 14)); // NOI18N
         ERRORTV.setForeground(new java.awt.Color(255, 0, 0));
+        ERRORTV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ERRORTV.setText("ERRORRRR");
         jPanel1.add(ERRORTV);
-        ERRORTV.setBounds(30, 740, 330, 20);
+        ERRORTV.setBounds(1040, 680, 260, 40);
 
         blank.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\Exam BG.png")); // NOI18N
         blank.setText("jLabel1");
@@ -230,7 +233,8 @@ public class TeacherQuizzes extends javax.swing.JFrame {
     private void OPENBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OPENBTNActionPerformed
         try {
             if(TitleUser.equals("")){
-                ERRORTV.setText("EMPTY");
+                ERRORTV.setVisible(true);
+                ERRORTV.setText("NO DATA FOUND!");
                 return;
             }else{
             AddExam exam = new AddExam(user,TitleUser);
@@ -254,6 +258,11 @@ public class TeacherQuizzes extends javax.swing.JFrame {
 
     private void DELETEBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DELETEBTNActionPerformed
         try {
+            if(QTID==0){
+                ERRORTV.setVisible(true);
+                ERRORTV.setText("NO DATA FOUND!");
+                return;
+            }
             Connection con = connect();
             PreparedStatement pst=con.prepareStatement("DELETE FROM AnswersSingle WHERE QT_ID = '"+QTID+"'");
             pst.execute();
@@ -266,6 +275,8 @@ public class TeacherQuizzes extends javax.swing.JFrame {
           pst=con.prepareStatement("DELETE FROM QuizesTitle WHERE QT_ID = '"+QTID+"'");
             pst.execute();
             pst.close();
+            QTID=0;
+           TitleUser="";
             updatetable1(getUserID(user));
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(TeacherQuizzes.class.getName()).log(Level.SEVERE, null, ex);

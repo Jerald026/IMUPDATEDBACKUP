@@ -6,8 +6,14 @@
 package StudentPackage;
 
 import TeacherPackage.*;
+import connectionPackage.DBconnection;
+import static connectionPackage.DBconnection.connect;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,8 +22,10 @@ import java.util.logging.Logger;
  * @author halla
  */
 public class StudentInformation extends javax.swing.JFrame {
+
     private String user;
     private String title;
+
     /**
      * Creates new form Home
      */
@@ -33,6 +41,7 @@ public class StudentInformation extends javax.swing.JFrame {
         int ysize = (int) tk.getScreenSize().getHeight();
         this.setSize(xsize, ysize);
     }
+
     public StudentInformation(String user, String title) {
         this.setUndecorated(true);
         this.setAlwaysOnTop(true);
@@ -57,18 +66,57 @@ public class StudentInformation extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        TEXTFIELDLNAME = new javax.swing.JTextField();
+        TEXTFIELDFNAME = new javax.swing.JTextField();
+        TEXTFIELDSECTION1 = new javax.swing.JTextField();
+        TEXTFIELDCODE = new javax.swing.JTextField();
+        ERRORTV = new javax.swing.JLabel();
+        blank = new javax.swing.JLabel();
+        JOINBTN = new javax.swing.JButton();
+        BACKBTN = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1965, 1080));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1965, 1080));
         jPanel1.setLayout(null);
+        jPanel1.add(TEXTFIELDLNAME);
+        TEXTFIELDLNAME.setBounds(90, 310, 510, 40);
+        jPanel1.add(TEXTFIELDFNAME);
+        TEXTFIELDFNAME.setBounds(90, 200, 510, 40);
+        jPanel1.add(TEXTFIELDSECTION1);
+        TEXTFIELDSECTION1.setBounds(90, 420, 510, 50);
+        jPanel1.add(TEXTFIELDCODE);
+        TEXTFIELDCODE.setBounds(90, 530, 510, 50);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Cerceas Bulawan\\Documents\\NetBeansProjects\\GUIPROJECT-master\\src\\BG\\StudentInfo.png")); // NOI18N
-        jLabel1.setText("jLabel1");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(0, 0, 1965, 768);
+        ERRORTV.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
+        ERRORTV.setForeground(new java.awt.Color(255, 0, 0));
+        ERRORTV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(ERRORTV);
+        ERRORTV.setBounds(160, 600, 380, 20);
+
+        blank.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\StudentInfo.png")); // NOI18N
+        blank.setText("jLabel1");
+        jPanel1.add(blank);
+        blank.setBounds(0, 0, 1965, 768);
+
+        JOINBTN.setText("jButton1");
+        JOINBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JOINBTNActionPerformed(evt);
+            }
+        });
+        jPanel1.add(JOINBTN);
+        JOINBTN.setBounds(280, 630, 150, 60);
+
+        BACKBTN.setText("jButton1");
+        BACKBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BACKBTNActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BACKBTN);
+        BACKBTN.setBounds(10, 10, 50, 50);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,6 +135,89 @@ public class StudentInformation extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+public int getIdStudent(String Fname, String Lname, String section, String code) throws SQLException {
+        try {
+            Connection con = connect();
+            PreparedStatement pst = con.prepareStatement("SELECT SA_ID FROM Student_Account WHERE SA_FName = ? AND SA_LName = ? AND SA_Section = ? AND QT_CODEGENERATE = ?");
+            pst.setString(1, Fname);
+            pst.setString(2, Lname);
+            pst.setString(3, section);
+            pst.setString(4, code);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(StudentInformation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+public String getCondition(String QT_CODEGENERATE){
+    
+    
+    return null;
+}
+    public Boolean checkcode(String QT_CODEGENERATE) {
+              try (Connection con = connect()) {
+                    PreparedStatement pst = con.prepareStatement("SELECT * FROM QuizesTitle WHERE QT_CODEGENERATE = ?");
+                    pst.setString(1, QT_CODEGENERATE);
+                    ResultSet rs = pst.executeQuery();
+                    if (rs.next()) {
+                        return true ;
+                    }
+        
+         }catch (ClassNotFoundException ex) {
+            Logger.getLogger(StudentInformation.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentInformation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return false;
+    }
+    private void JOINBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JOINBTNActionPerformed
+        try {
+            if (TEXTFIELDFNAME.getText().equals("") || TEXTFIELDLNAME.getText().equals("") || TEXTFIELDSECTION1.getText().equals("") || TEXTFIELDCODE.getText().equals("")) {
+                ERRORTV.setText("Fill Up all the Fields");
+                return;
+            }
+                if( !checkcode( TEXTFIELDCODE.getText())){
+                      ERRORTV.setText("Invalid code! \n Please Check the Code");
+                      return;
+                }
+                int id = getIdStudent(TEXTFIELDFNAME.getText(), TEXTFIELDLNAME.getText(), TEXTFIELDSECTION1.getText(), TEXTFIELDCODE.getText());
+                try (Connection con = connect()) {
+                    PreparedStatement pst = con.prepareStatement("SELECT * FROM Student_Account WHERE SA_ID = '"+id+"' AND SA_FName = '"+TEXTFIELDFNAME.getText()+"' AND SA_LName = '"+TEXTFIELDLNAME.getText()+"' AND SA_Section = '"+TEXTFIELDSECTION1.getText()+"' AND QT_CODEGENERATE = '"+TEXTFIELDCODE.getText()+"'");
+                     ResultSet rs = pst.executeQuery();
+                    if (rs.next()) {
+                        ERRORTV.setText("You are already done, please input another code");
+                        return;
+                    } else {
+                        pst.close();
+                        rs.close();
+                        pst = con.prepareStatement("INSERT INTO Student_Account(SA_FName,SA_LName,SA_Section,QT_CODEGENERATE) VALUES(?,?,?,?)");
+                        pst.setString(1, TEXTFIELDFNAME.getText());
+                        pst.setString(2, TEXTFIELDLNAME.getText());
+                        pst.setString(3, TEXTFIELDSECTION1.getText());
+                        pst.setString(4, TEXTFIELDCODE.getText());
+                        pst.execute();
+                 
+                    }
+                    pst.close();
+                    con.close();
+
+                } catch (ClassNotFoundException ex) {
+                Logger.getLogger(StudentInformation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_JOINBTNActionPerformed
+
+    private void BACKBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKBTNActionPerformed
+        Home home = new Home();
+        home.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BACKBTNActionPerformed
 
     /**
      * @param args the command line arguments
@@ -127,7 +258,14 @@ public class StudentInformation extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton BACKBTN;
+    private javax.swing.JLabel ERRORTV;
+    private javax.swing.JButton JOINBTN;
+    private javax.swing.JTextField TEXTFIELDCODE;
+    private javax.swing.JTextField TEXTFIELDFNAME;
+    private javax.swing.JTextField TEXTFIELDLNAME;
+    private javax.swing.JTextField TEXTFIELDSECTION1;
+    private javax.swing.JLabel blank;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
