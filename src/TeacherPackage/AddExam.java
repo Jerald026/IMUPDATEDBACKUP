@@ -73,7 +73,7 @@ public class AddExam extends javax.swing.JFrame {
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -88,19 +88,20 @@ public class AddExam extends javax.swing.JFrame {
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
         private void updatetable1(int userID,int QuizTitle) {
         try {
-         String sql = "SELECT Questions.TA_ID,Questions.QT_ID,Questions.QE_ID,Questions.QE_Questions,Questions.QE_Condition,AnswersSingle.AN_Answers,AnswersSingle.AN_CorrectAns,"
-                 + "AnswersSingle.AN_A,AnswersSingle.AN_B,AnswersSingle.AN_C,AnswersSingle.AN_D \n" +
+         String sql = "SELECT Questions.TA_ID AS Teacher_ID, Questions.QT_ID AS TitleID ,Questions.QE_ID AS Question_ID ,Questions.QE_Questions AS Question,Questions.QE_Condition AS Condition,AnswersSingle.AN_Answers AS Answer_Identification,AnswersSingle.AN_CorrectAns AS Answer_Mutiple,"
+                 + "AnswersSingle.AN_A AS Answer_A,AnswersSingle.AN_B AS Answer_B,AnswersSingle.AN_C AS Answer_C,AnswersSingle.AN_D AS Answer_D\n" +
             "FROM Questions FULL JOIN AnswersSingle \n" +
             "ON Questions.QE_ID = AnswersSingle.QE_ID WHERE Questions.TA_ID = '"+userID+"' AND Questions.QT_ID = '"+QuizTitle+"'";
             Connection conn = connect();
             PreparedStatement pst = conn.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
+          
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
             pst.close();
@@ -133,6 +134,7 @@ public class AddExam extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(1965, 1080));
         jPanel1.setLayout(null);
 
+        jTable1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -157,7 +159,7 @@ public class AddExam extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 130, 1110, 630);
+        jScrollPane1.setBounds(10, 130, 1140, 630);
 
         LabelTitleEXAM.setFont(new java.awt.Font("Bahnschrift", 1, 24)); // NOI18N
         LabelTitleEXAM.setForeground(new java.awt.Color(255, 255, 255));

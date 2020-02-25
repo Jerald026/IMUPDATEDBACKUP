@@ -79,10 +79,12 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1.setLayout(null);
 
+        LoginUserTextField.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         LoginUserTextField.setBorder(null);
         jPanel1.add(LoginUserTextField);
         LoginUserTextField.setBounds(850, 300, 390, 40);
 
+        LoginPassTextField.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         LoginPassTextField.setBorder(null);
         jPanel1.add(LoginPassTextField);
         LoginPassTextField.setBounds(850, 420, 390, 40);
@@ -152,7 +154,7 @@ public class Login extends javax.swing.JFrame {
     private void EnterBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterBTNActionPerformed
     try{
             if (LoginUserTextField.getText().equals("") || LoginPassTextField.getPassword().length==0) {
-                ERRORTV.setText("Fill up all fields");
+                ERRORTV.setText("Fill up all fields!");
                 return;
             }
              if (accounts.containsKey(LoginUserTextField.getText())){
@@ -162,10 +164,10 @@ public class Login extends javax.swing.JFrame {
                    home.setVisible(true);
                    this.dispose();
                 }else{
-                       ERRORTV.setText("Wrong password");
+                       ERRORTV.setText("Wrong password!");
                  }
              }else{
-                 ERRORTV.setText("User doesnt exist");
+                 ERRORTV.setText("User doesnt exist!");
              }
         }catch(Exception e){
             System.out.println(e);

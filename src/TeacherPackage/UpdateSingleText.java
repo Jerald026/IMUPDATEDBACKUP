@@ -103,11 +103,14 @@ public class UpdateSingleText extends javax.swing.JFrame {
         jLabel2.setBounds(790, 350, 100, 50);
 
         TEXTAREAQTN.setColumns(20);
+        TEXTAREAQTN.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         TEXTAREAQTN.setRows(5);
         jScrollPane1.setViewportView(TEXTAREAQTN);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(450, 230, 750, 100);
+
+        TextFieldAnswerText.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jPanel1.add(TextFieldAnswerText);
         TextFieldAnswerText.setBounds(600, 410, 500, 51);
 
@@ -186,7 +189,7 @@ public class UpdateSingleText extends javax.swing.JFrame {
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -202,7 +205,7 @@ public class UpdateSingleText extends javax.swing.JFrame {
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -223,7 +226,7 @@ public class UpdateSingleText extends javax.swing.JFrame {
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -253,7 +256,7 @@ public class UpdateSingleText extends javax.swing.JFrame {
          
             setToEmpty();
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(UpdateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(UpdateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_SINGLEADDActionPerformed
 

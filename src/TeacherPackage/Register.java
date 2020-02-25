@@ -60,14 +60,24 @@ public class Register extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1965, 1080));
 
         jPanel1.setLayout(null);
+
+        RegisterFirstNTextField.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jPanel1.add(RegisterFirstNTextField);
         RegisterFirstNTextField.setBounds(90, 240, 240, 40);
+
+        RegisterLTextField.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jPanel1.add(RegisterLTextField);
         RegisterLTextField.setBounds(360, 240, 240, 40);
+
+        RegisterUserNTextField.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jPanel1.add(RegisterUserNTextField);
         RegisterUserNTextField.setBounds(90, 340, 510, 40);
+
+        RegisterPassTextField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jPanel1.add(RegisterPassTextField);
         RegisterPassTextField.setBounds(90, 430, 510, 50);
+
+        RegisterConfirmPTextField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jPanel1.add(RegisterConfirmPTextField);
         RegisterConfirmPTextField.setBounds(90, 530, 510, 50);
 

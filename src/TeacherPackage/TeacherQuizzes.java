@@ -59,7 +59,7 @@ public class TeacherQuizzes extends javax.swing.JFrame {
 
     private void updatetable1(int user) {
         try {
-            String sql = "SELECT QT_ID,QT_Title,QT_CODEGENERATE FROM QuizesTitle WHERE TA_ID = '"+user+"'";
+            String sql = "SELECT QT_ID AS Question_ID, QT_Title AS Quiz_Title,QT_CODEGENERATE AS Exam_Code FROM QuizesTitle WHERE TA_ID = '"+user+"'";
             Connection conn = connect();
             PreparedStatement pst = conn.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
@@ -81,7 +81,7 @@ public class TeacherQuizzes extends javax.swing.JFrame {
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -129,6 +129,7 @@ public class TeacherQuizzes extends javax.swing.JFrame {
 
         jPanel1.setLayout(null);
 
+        jTable1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

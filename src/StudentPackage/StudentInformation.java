@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,7 @@ public class StudentInformation extends javax.swing.JFrame {
     private String title;
     private int QTID = 0;
     private int TAID = 0;
+    private int SAID = 0;
 
     /**
      * Creates new form Home
@@ -43,7 +45,6 @@ public class StudentInformation extends javax.swing.JFrame {
         int ysize = (int) tk.getScreenSize().getHeight();
         this.setSize(xsize, ysize);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,12 +70,20 @@ public class StudentInformation extends javax.swing.JFrame {
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1965, 1080));
         jPanel1.setLayout(null);
+
+        TEXTFIELDLNAME.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jPanel1.add(TEXTFIELDLNAME);
         TEXTFIELDLNAME.setBounds(90, 310, 510, 40);
+
+        TEXTFIELDFNAME.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jPanel1.add(TEXTFIELDFNAME);
         TEXTFIELDFNAME.setBounds(90, 200, 510, 40);
+
+        TEXTFIELDSECTION1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jPanel1.add(TEXTFIELDSECTION1);
         TEXTFIELDSECTION1.setBounds(90, 420, 510, 50);
+
+        TEXTFIELDCODE.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jPanel1.add(TEXTFIELDCODE);
         TEXTFIELDCODE.setBounds(90, 530, 510, 50);
 
@@ -124,7 +133,7 @@ public class StudentInformation extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-public int getIdStudent(String Fname, String Lname, String section, String code) throws SQLException {
+    public int getIdStudent(String Fname, String Lname, String section, String code) throws SQLException {
         try {
             Connection con = connect();
             PreparedStatement pst = con.prepareStatement("SELECT SA_ID FROM Student_Account WHERE SA_FName = ? AND SA_LName = ? AND SA_Section = ? AND QT_CODEGENERATE = ?");
@@ -151,7 +160,7 @@ public int getIdStudent(String Fname, String Lname, String section, String code)
             if (rs.next()) {
                 QTID = rs.getInt(1);
                 TAID = rs.getInt(2);
-                title=rs.getString(3);
+                title = rs.getString(3);
             }
             pst.close();
             rs.close();
@@ -198,6 +207,7 @@ public int getIdStudent(String Fname, String Lname, String section, String code)
                 return;
             }
             int id = getIdStudent(TEXTFIELDFNAME.getText(), TEXTFIELDLNAME.getText(), TEXTFIELDSECTION1.getText(), TEXTFIELDCODE.getText());
+            System.out.println(id);
             try (Connection con = connect()) {
                 PreparedStatement pst = con.prepareStatement("SELECT * FROM Student_Account WHERE SA_ID = '" + id + "' AND SA_FName = '" + TEXTFIELDFNAME.getText() + "' AND SA_LName = '" + TEXTFIELDLNAME.getText() + "' AND SA_Section = '" + TEXTFIELDSECTION1.getText() + "' AND QT_CODEGENERATE = '" + TEXTFIELDCODE.getText() + "'");
                 ResultSet rs = pst.executeQuery();
@@ -207,19 +217,27 @@ public int getIdStudent(String Fname, String Lname, String section, String code)
                 } else {
                     pst.close();
                     rs.close();
-                    pst = con.prepareStatement("INSERT INTO Student_Account(SA_FName,SA_LName,SA_Section,QT_CODEGENERATE) VALUES(?,?,?,?)");
+                    pst = con.prepareStatement("INSERT INTO Student_Account(SA_FName,SA_LName,SA_Section,QT_CODEGENERATE) VALUES(?,?,?,?)" , Statement.RETURN_GENERATED_KEYS);
                     pst.setString(1, TEXTFIELDFNAME.getText());
                     pst.setString(2, TEXTFIELDLNAME.getText());
                     pst.setString(3, TEXTFIELDSECTION1.getText());
                     pst.setString(4, TEXTFIELDCODE.getText());
-                    pst.execute();
+                    pst.executeUpdate();
+                    
+                    ResultSet tableKeys = pst.getGeneratedKeys();
+                    tableKeys.next();
+                    
+                    SAID = tableKeys.getInt(1);
                     String condition = getFirstCondition(TEXTFIELDCODE.getText());
+                    System.out.println(QTID + " " + TAID + " " + title);
+                    ResultSet pass = gResultSet(QTID, TAID);
+                    System.out.println(condition);
                     if (condition.equals("TEXT")) {
-                        StudentAnswerText answerText = new StudentAnswerText(TAID,QTID,title);
+                        LastTryCopy answerText = new LastTryCopy(getIdStudent(TEXTFIELDFNAME.getText(), TEXTFIELDLNAME.getText(), TEXTFIELDSECTION1.getText(), TEXTFIELDCODE.getText()),TAID, QTID, title, "TEXT");
                         answerText.setVisible(true);
                         this.dispose();
                     } else if (condition.equals("MULTIPLE")) {
-                        StudentAnswerMultiple answerMultiple = new StudentAnswerMultiple(TAID,QTID,title);
+                        LastTryCopy answerMultiple = new LastTryCopy(getIdStudent(TEXTFIELDFNAME.getText(), TEXTFIELDLNAME.getText(), TEXTFIELDSECTION1.getText(), TEXTFIELDCODE.getText()),TAID, QTID, title, "MULTIPLE");
                         answerMultiple.setVisible(true);
                         this.dispose();
                     }
@@ -236,7 +254,21 @@ public int getIdStudent(String Fname, String Lname, String section, String code)
             System.out.println(e);
         }
     }//GEN-LAST:event_JOINBTNActionPerformed
-
+    public ResultSet gResultSet(int QT, int TA) throws SQLException {
+        try {
+            Connection con = connect();
+            PreparedStatement pst = con.prepareStatement("SELECT * FROM Questions WHERE QT_ID = ? AND TA_ID = ? ");
+            pst.setInt(1, QTID);
+            pst.setInt(2, TAID);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs;
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(StudentInformation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     private void BACKBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKBTNActionPerformed
         Home home = new Home();
         home.setVisible(true);

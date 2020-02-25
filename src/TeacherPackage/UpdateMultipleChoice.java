@@ -132,6 +132,7 @@ public class UpdateMultipleChoice extends javax.swing.JFrame {
         jLabel2.setBounds(450, 180, 190, 50);
 
         TEXTAREAQTN.setColumns(20);
+        TEXTAREAQTN.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         TEXTAREAQTN.setRows(5);
         jScrollPane1.setViewportView(TEXTAREAQTN);
 
@@ -159,12 +160,20 @@ public class UpdateMultipleChoice extends javax.swing.JFrame {
         jLabel7.setText("CORRECT ANSWER");
         jPanel1.add(jLabel7);
         jLabel7.setBounds(1010, 490, 120, 30);
+
+        TextFieldA.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jPanel1.add(TextFieldA);
         TextFieldA.setBounds(632, 410, 320, 41);
+
+        TextFieldB.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jPanel1.add(TextFieldB);
         TextFieldB.setBounds(632, 470, 320, 41);
+
+        TextFieldD.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jPanel1.add(TextFieldD);
         TextFieldD.setBounds(632, 590, 320, 41);
+
+        TextFieldC.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jPanel1.add(TextFieldC);
         TextFieldC.setBounds(632, 530, 320, 41);
 
@@ -241,7 +250,7 @@ public int getIDQuizTitle(String title) throws SQLException {
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -257,7 +266,7 @@ public int getIDQuizTitle(String title) throws SQLException {
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -281,7 +290,7 @@ public int getIDQuizTitle(String title) throws SQLException {
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -312,9 +321,9 @@ public int getIDQuizTitle(String title) throws SQLException {
             
             setToEmpty();
         } catch (SQLException ex) {
-            Logger.getLogger(UpdateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(UpdateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UpdateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(UpdateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_MULTIADDActionPerformed
 

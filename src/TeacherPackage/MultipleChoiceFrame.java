@@ -107,14 +107,15 @@ public class MultipleChoiceFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jLabel2.setText("Question:");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(420, 180, 190, 50);
+        jLabel2.setBounds(450, 180, 190, 50);
 
         TEXTAREAQTN.setColumns(20);
+        TEXTAREAQTN.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         TEXTAREAQTN.setRows(5);
         jScrollPane1.setViewportView(TEXTAREAQTN);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(420, 230, 690, 130);
+        jScrollPane1.setBounds(450, 220, 690, 130);
 
         ComboBoxChoices.setBackground(new java.awt.Color(0, 102, 51));
         ComboBoxChoices.setForeground(new java.awt.Color(255, 255, 255));
@@ -137,12 +138,20 @@ public class MultipleChoiceFrame extends javax.swing.JFrame {
         jLabel7.setText("CORRECT ANSWER");
         jPanel1.add(jLabel7);
         jLabel7.setBounds(1010, 490, 120, 30);
+
+        TextFieldA.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jPanel1.add(TextFieldA);
         TextFieldA.setBounds(632, 410, 320, 41);
+
+        TextFieldB.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jPanel1.add(TextFieldB);
         TextFieldB.setBounds(632, 470, 320, 41);
+
+        TextFieldD.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jPanel1.add(TextFieldD);
         TextFieldD.setBounds(632, 590, 320, 41);
+
+        TextFieldC.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jPanel1.add(TextFieldC);
         TextFieldC.setBounds(632, 530, 320, 41);
 
@@ -170,12 +179,12 @@ public class MultipleChoiceFrame extends javax.swing.JFrame {
         SUCCESSLABEL.setFont(new java.awt.Font("Bahnschrift", 3, 14)); // NOI18N
         SUCCESSLABEL.setForeground(new java.awt.Color(0, 153, 51));
         jPanel1.add(SUCCESSLABEL);
-        SUCCESSLABEL.setBounds(420, 360, 320, 30);
+        SUCCESSLABEL.setBounds(450, 350, 320, 30);
 
         ERRORLABEl.setFont(new java.awt.Font("Bahnschrift", 3, 14)); // NOI18N
         ERRORLABEl.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(ERRORLABEl);
-        ERRORLABEl.setBounds(420, 360, 320, 30);
+        ERRORLABEl.setBounds(450, 350, 320, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon("D:\\NU School Files\\5th Term\\UpdateIM-master\\src\\IM PICS\\Multiple BG.png")); // NOI18N
         jLabel1.setText("jLabel1");
@@ -219,7 +228,7 @@ public int getIDQuizTitle(String title) throws SQLException {
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+               System.out.println(ex);
         }
         return 0;
     }
@@ -235,7 +244,7 @@ public int getIDQuizTitle(String title) throws SQLException {
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
         return 0;
     }
@@ -259,7 +268,7 @@ public int getIDQuizTitle(String title) throws SQLException {
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+               System.out.println(ex);
         }
         return 0;
     }
@@ -335,9 +344,9 @@ public int getIDQuizTitle(String title) throws SQLException {
                 setToEmpty();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+               System.out.println(ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateQuestionFrame.class.getName()).log(Level.SEVERE, null, ex);
+               System.out.println(ex);
         }
     }//GEN-LAST:event_MULTIADDActionPerformed
 

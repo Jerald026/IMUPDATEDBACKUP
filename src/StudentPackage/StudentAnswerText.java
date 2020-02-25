@@ -146,7 +146,7 @@ public class StudentAnswerText extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void NEXTBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NEXTBTNActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_NEXTBTNActionPerformed
 
     private void BACKBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKBTNActionPerformed
